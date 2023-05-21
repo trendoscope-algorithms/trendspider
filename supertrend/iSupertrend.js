@@ -27,7 +27,7 @@ const length = input('Length', 20, { min: 10});
 const multiplier = input('Multiplier', 4, {min: 0.5})
 const reference = input('Reference', 'high/low', ['high/low', 'close'])
 const waitForClose = input('Wait For Close', 'true', ['true', 'false'])
-
+const plotType = input('Plot Type', 'line', ['line', 'dotted'])
 const atrDiff = mult(atr(length), multiplier)
 
 let longDiff = null
@@ -38,6 +38,8 @@ let direction = 1
 
 const supertrend = series_of(null)
 const trendColor = series_of('red')
+const bullishLabel = series_of(null)
+const bearishLabel = series_of(null)
 
 const longAtr = series_of(null)
 const shortAtr = series_of(null)
@@ -100,10 +102,14 @@ for (let index = 1; index < high.length; index++) {
     const longValue = waitForClose === 'true'? close[index] : low[index]
     const shortValue = waitForClose === 'true'? close[index] : high[index]
 
+    bullishLabel[index] = (direction === -1 && shortValue >= shortStop) ? 'Bullish' : null
+    bearishLabel[index] = (direction === 1 && longValue <= longStop) ? 'Bearish' : null
     direction = (direction === 1 && longValue <= longStop) ? -1 : (direction === -1 && shortValue >= shortStop) ? 1 : direction
 
     supertrend[index] = direction> 0? longStop : shortStop
     trendColor[index] = direction > 0? 'red': 'green'
 }
 
-paint(supertrend, 'Supertrend', trendColor);
+paint(supertrend, 'Supertrend', trendColor, plotType);
+paint(bullishLabel, 'Bullish', 'green', 'labels_above')
+paint(bearishLabel, 'Bearish', 'red', 'labels_below')

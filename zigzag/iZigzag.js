@@ -114,7 +114,6 @@ const nextLevel = function(zigzagObj){
         pivots : [],
         level : zigzagObj.level+1
     }
-    console.log('here '+nextLevel.level)
     if(zigzagObj.pivots.length > 0){
         let tempBullishPivot = null
         let tempBearishPivot = null
@@ -157,7 +156,6 @@ const nextLevel = function(zigzagObj){
                     tempBullishPivot = null
                     tempBearishPivot = null
                 }else{
-                    console.log('assign temp')
                     if(newDir > 0){
                         tempBullishPivot = pivot
                     }else{
@@ -165,7 +163,6 @@ const nextLevel = function(zigzagObj){
                     }
                 }
             }else if(Math.abs(dir) === 2){
-                console.log('add next level')
                 addNewPivot(nextLevel.pivots, pivot)
             }
         }
@@ -173,7 +170,6 @@ const nextLevel = function(zigzagObj){
     if(nextLevel.pivots.length >= zigzagObj.pivots.length){
         nextLevel.pivots.clear()
     }
-    console.log('Size '+nextLevel.pivots.length)
     return nextLevel
 }
 
@@ -230,8 +226,7 @@ for(let index=0; index < high.length; index++){
 }
 let mlZigzagObj = zigzagObj
 while(mlZigzagObj.pivots.length > 3){
-    console.log(mlZigzagObj.level)
-    drawZigzag(mlZigzagObj, mlZigzagObj.level === highlight)
+    const isHighlight = mlZigzagObj.level === highlight
+    drawZigzag(mlZigzagObj, isHighlight)
     mlZigzagObj = nextLevel(mlZigzagObj)
 }
-
