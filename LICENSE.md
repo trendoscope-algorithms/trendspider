@@ -1,4 +1,4 @@
-// This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0/
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
 // © Trendoscope Pty Ltd
 //                                       ░▒             
 //                                  ▒▒▒   ▒▒      

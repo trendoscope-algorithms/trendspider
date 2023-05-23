@@ -1,4 +1,4 @@
-// This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0/
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
 // © Trendoscope Pty Ltd
 //                                       ░▒
 //                                  ▒▒▒   ▒▒
@@ -22,12 +22,11 @@
 //
 describe_indicator('iSupertrend [Trendoscope]', 'price', { shortName: 'iST [Trendoscope]' });
 const type = input('Range Type', 'Ladder TR', ['Ladder TR', 'PlusMinus Range', 'True Range'])
-const appliedCalculation = input('Applied Calculation', 'max', ['average', 'max'])
+const appliedCalculation = input('Applied Calculation', 'average', ['average', 'max'])
 const length = input('Length', 20, { min: 10});
 const multiplier = input('Multiplier', 4, {min: 0.5})
 const reference = input('Reference', 'high/low', ['high/low', 'close'])
 const waitForClose = input('Wait For Close', 'true', ['true', 'false'])
-const plotType = input('Plot Type', 'line', ['line', 'dotted'])
 const atrDiff = mult(atr(length), multiplier)
 
 let longDiff = null
@@ -87,9 +86,8 @@ for (let index = 1; index < high.length; index++) {
         lpush(redCandles, minusRange, length)
     }
 
-    longAtr[index] = redCandles.length < length? atrDiff[index] : average(redCandles)*multiplier
-    shortAtr[index] = greenCandles.length < length?  atrDiff[index] : average(greenCandles)*multiplier
-
+    longAtr[index] = redCandles.length < length? atrDiff[index] : (appliedCalculation === 'average'? average(redCandles) : Math.max(...redCandles))*multiplier
+    shortAtr[index] = greenCandles.length < length?  atrDiff[index] : (appliedCalculation === 'average'? average(greenCandles) : Math.max(...greenCandles))*multiplier
     longDiff = index > 1 && direction > 0 && longDiff != null ? Math.min(longDiff, longAtr[index]) : longAtr[index]
     shortDiff = index > 1 && direction < 0 && longDiff != null ? Math.min(shortDiff, shortAtr[index]) : shortAtr[index]
 
@@ -99,8 +97,8 @@ for (let index = 1; index < high.length; index++) {
     const shortStopCurrent =  (reference === 'close'? close[index] : high[index]) + shortDiff
     shortStop = index > 1 && direction < 0 && shortStop != null? Math.min(shortStop,shortStopCurrent) : shortStopCurrent
 
-    const longValue = waitForClose === 'true'? close[index] : low[index]
-    const shortValue = waitForClose === 'true'? close[index] : high[index]
+    const longValue = waitForClose === 'true'? close[index-1] : low[index-1]
+    const shortValue = waitForClose === 'true'? close[index-1] : high[index-1]
 
     bullishLabel[index] = (direction === -1 && shortValue >= shortStop) ? 'Bullish' : null
     bearishLabel[index] = (direction === 1 && longValue <= longStop) ? 'Bearish' : null
@@ -110,6 +108,6 @@ for (let index = 1; index < high.length; index++) {
     trendColor[index] = direction > 0? 'red': 'green'
 }
 
-paint(supertrend, 'Supertrend', trendColor, plotType);
+paint(supertrend, 'Supertrend', trendColor, 'line');
 paint(bullishLabel, 'Bullish', 'green', 'labels_above')
 paint(bearishLabel, 'Bearish', 'red', 'labels_below')
