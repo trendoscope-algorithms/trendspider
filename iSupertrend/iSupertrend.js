@@ -71,20 +71,26 @@ for (let index = 1; index < high.length; index++) {
 
     if(type === 'Ladder TR'){
         if(close[index] > close[index-1] || high[index] > high[index-1] || close[index] > open[index]){
-            lpush(greenCandles, tr, length)
+            greenCandles.push(tr)
+            // lpush(greenCandles, tr, length)
         }
 
         if(close[index] < close[index-1] || low[index] < low[index-1] || close[index] < open[index]){
-            lpush(redCandles, tr, length)
+            redCandles.push(tr)
+            // lpush(redCandles, tr, length)
         }
     }
     if(type === 'True Range'){
-        lpush(greenCandles, tr, length)
-        lpush(redCandles, tr, length)
+        // lpush(greenCandles, tr, length)
+        // lpush(redCandles, tr, length)
+        greenCandles.push(tr)
+        redCandles.push(tr)
     }
     if(type === 'PlusMinus Range'){
-        lpush(greenCandles, plusRange, length)
-        lpush(redCandles, minusRange, length)
+        // lpush(greenCandles, plusRange, length)
+        // lpush(redCandles, minusRange, length)
+        greenCandles.push(plusRange)
+        redCandles.push(minusRange)
     }
 
     longAtr[index] = redCandles.length < length? atrDiff[index] : indicators[appliedCalculation](redCandles, length)[length-1]*multiplier
