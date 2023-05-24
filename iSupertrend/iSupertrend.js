@@ -22,7 +22,7 @@
 //
 describe_indicator('iSupertrend [Trendoscope]', 'price', { shortName: 'iST [Trendoscope]' });
 const type = input('Range Type', 'Ladder TR', ['Ladder TR', 'PlusMinus Range', 'True Range'])
-const appliedCalculation = input('Applied Calculation2', 'sma', constants.ma_types.concat('highest'))
+const appliedCalculation = input('Applied Calculation', 'sma', constants.ma_types.concat('highest'))
 const useDiminishingStopDiff = input('Diminishing Stop Distance', 'true', ['true', 'false'])
 const length = input('Length', 20, { min: 10});
 const multiplier = input('Multiplier', 4, {min: 0.5})
