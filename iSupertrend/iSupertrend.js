@@ -1,4 +1,4 @@
-// This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0/
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
 // © Trendoscope Pty Ltd
 //                                       ░▒
 //                                  ▒▒▒   ▒▒
@@ -22,7 +22,7 @@
 //
 describe_indicator('iSupertrend [Trendoscope]', 'price', { shortName: 'iST [Trendoscope]' });
 const type = input('Range Type', 'Ladder TR', ['Ladder TR', 'PlusMinus Range', 'True Range'])
-const appliedCalculation = input('Applied Calculation', 'sma', constants.ma_types.concat('highest'))
+const appliedCalculation = input('Applied Calculation', 'average', ['average', 'max'])
 const useDiminishingStopDiff = input('Diminishing Stop Distance', 'true', ['true', 'false'])
 const length = input('Length', 20, { min: 10});
 const multiplier = input('Multiplier', 4, {min: 0.5})
@@ -71,31 +71,24 @@ for (let index = 1; index < high.length; index++) {
 
     if(type === 'Ladder TR'){
         if(close[index] > close[index-1] || high[index] > high[index-1] || close[index] > open[index]){
-            greenCandles.push(tr)
-            // lpush(greenCandles, tr, length)
+            lpush(greenCandles, tr, length)
         }
 
         if(close[index] < close[index-1] || low[index] < low[index-1] || close[index] < open[index]){
-            redCandles.push(tr)
-            // lpush(redCandles, tr, length)
+            lpush(redCandles, tr, length)
         }
     }
     if(type === 'True Range'){
-        // lpush(greenCandles, tr, length)
-        // lpush(redCandles, tr, length)
-        greenCandles.push(tr)
-        redCandles.push(tr)
+        lpush(greenCandles, tr, length)
+        lpush(redCandles, tr, length)
     }
     if(type === 'PlusMinus Range'){
-        // lpush(greenCandles, plusRange, length)
-        // lpush(redCandles, minusRange, length)
-        greenCandles.push(plusRange)
-        redCandles.push(minusRange)
+        lpush(greenCandles, plusRange, length)
+        lpush(redCandles, minusRange, length)
     }
 
-    longAtr[index] = redCandles.length < length? atrDiff[index] : indicators[appliedCalculation](redCandles, length)[length-1]*multiplier
-    shortAtr[index] = greenCandles.length < length?  atrDiff[index] : indicators[appliedCalculation](greenCandles, length)[length-1]*multiplier
-
+    longAtr[index] = redCandles.length < length? atrDiff[index] : (appliedCalculation === 'average'? average(redCandles) : Math.max(...redCandles))*multiplier
+    shortAtr[index] = greenCandles.length < length?  atrDiff[index] : (appliedCalculation === 'average'? average(greenCandles) : Math.max(...greenCandles))*multiplier
     longDiff = index > 1 && direction > 0 && longDiff != null && useDiminishingStopDiff === 'true' ? Math.min(longDiff, longAtr[index]) : longAtr[index]
     shortDiff = index > 1 && direction < 0 && shortDiff != null && useDiminishingStopDiff === 'true' ? Math.min(shortDiff, shortAtr[index]) : shortAtr[index]
 
