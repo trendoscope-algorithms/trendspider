@@ -44,7 +44,7 @@ We can also consider things such as standard deviation, plus/minus standard devi
 
 ### Applied calculation on true range
 In general, average value of TR is considered for calculation of stop distance. Alternatively, we can explore following options.
-1. Moving Average Types - Instead of SMA - which is simple average, we can check other types of moving averages. At present moving averages are not implemented.
+1. Moving Average Types - Instead of SMA - which is simple average, we can check other types of moving averages.
 2. Another less popular option is to use Max value of TR range in last N periods instead of using an average
 
 In either case, the calculations are simple and straightforward.

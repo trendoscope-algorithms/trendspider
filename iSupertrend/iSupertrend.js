@@ -22,7 +22,7 @@
 //
 describe_indicator('iSupertrend [Trendoscope]', 'price', { shortName: 'iST [Trendoscope]' });
 const type = input('Range Type', 'Ladder TR', ['Ladder TR', 'PlusMinus Range', 'True Range'])
-const appliedCalculation = input('Applied Calculation', 'average', ['average', 'max'])
+const appliedCalculation = input('Applied Calculation2', 'sma', constants.ma_types.concat('highest'))
 const useDiminishingStopDiff = input('Diminishing Stop Distance', 'true', ['true', 'false'])
 const length = input('Length', 20, { min: 10});
 const multiplier = input('Multiplier', 4, {min: 0.5})
@@ -87,8 +87,9 @@ for (let index = 1; index < high.length; index++) {
         lpush(redCandles, minusRange, length)
     }
 
-    longAtr[index] = redCandles.length < length? atrDiff[index] : (appliedCalculation === 'average'? average(redCandles) : Math.max(...redCandles))*multiplier
-    shortAtr[index] = greenCandles.length < length?  atrDiff[index] : (appliedCalculation === 'average'? average(greenCandles) : Math.max(...greenCandles))*multiplier
+    longAtr[index] = redCandles.length < length? atrDiff[index] : indicators[appliedCalculation](redCandles, length)[length-1]*multiplier
+    shortAtr[index] = greenCandles.length < length?  atrDiff[index] : indicators[appliedCalculation](greenCandles, length)[length-1]*multiplier
+
     longDiff = index > 1 && direction > 0 && longDiff != null && useDiminishingStopDiff === 'true' ? Math.min(longDiff, longAtr[index]) : longAtr[index]
     shortDiff = index > 1 && direction < 0 && shortDiff != null && useDiminishingStopDiff === 'true' ? Math.min(shortDiff, shortAtr[index]) : shortAtr[index]
 
