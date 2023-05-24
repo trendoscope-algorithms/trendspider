@@ -1,4 +1,4 @@
-// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// This work is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0) https://creativecommons.org/licenses/by-nc-sa/4.0/
 // © Trendoscope Pty Ltd
 //                                       ░▒
 //                                  ▒▒▒   ▒▒
@@ -23,6 +23,7 @@
 describe_indicator('iSupertrend [Trendoscope]', 'price', { shortName: 'iST [Trendoscope]' });
 const type = input('Range Type', 'Ladder TR', ['Ladder TR', 'PlusMinus Range', 'True Range'])
 const appliedCalculation = input('Applied Calculation', 'average', ['average', 'max'])
+const useDiminishingStopDiff = input('Diminishing Stop Distance', 'true', ['true', 'false'])
 const length = input('Length', 20, { min: 10});
 const multiplier = input('Multiplier', 4, {min: 0.5})
 const reference = input('Reference', 'high/low', ['high/low', 'close'])
@@ -88,8 +89,8 @@ for (let index = 1; index < high.length; index++) {
 
     longAtr[index] = redCandles.length < length? atrDiff[index] : (appliedCalculation === 'average'? average(redCandles) : Math.max(...redCandles))*multiplier
     shortAtr[index] = greenCandles.length < length?  atrDiff[index] : (appliedCalculation === 'average'? average(greenCandles) : Math.max(...greenCandles))*multiplier
-    longDiff = index > 1 && direction > 0 && longDiff != null ? Math.min(longDiff, longAtr[index]) : longAtr[index]
-    shortDiff = index > 1 && direction < 0 && longDiff != null ? Math.min(shortDiff, shortAtr[index]) : shortAtr[index]
+    longDiff = index > 1 && direction > 0 && longDiff != null && useDiminishingStopDiff === 'true' ? Math.min(longDiff, longAtr[index]) : longAtr[index]
+    shortDiff = index > 1 && direction < 0 && shortDiff != null && useDiminishingStopDiff === 'true' ? Math.min(shortDiff, shortAtr[index]) : shortAtr[index]
 
     const longStopCurrent =  (reference === 'close'? close[index] : low[index]) - longDiff
     longStop = index > 1 && direction > 0 && longStop != null? Math.max(longStop,longStopCurrent) : longStopCurrent
