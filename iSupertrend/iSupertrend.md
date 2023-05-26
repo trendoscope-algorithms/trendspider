@@ -2,7 +2,6 @@
 
 Supertrend is a popular technical indicator used by traders to identify potential trend reversals and determine entry and exit points in financial markets. It is a trend-following indicator that combines price and volatility to generate its signals. Generally supertrend is calculated based on ATR and multiplier value which is used for calculation of stops. In these adaptions, we look to provide few variations to classical methods.
 
-
 ## Classic Supertrend
 
 In general supertrend is based on regular ATR(Average True Range) stoploss. The calculation of ATR goes as below
@@ -17,7 +16,7 @@ Short Stop Distance = ATR * Multiplier
 Below are the variations adapted in this indicator.
 ### Alternatives to True Range
 Other than using TR for calculation of ATR and this stoploss distance, there are few other options which we can consider. Those are
-1. **Ladder TR** - Ladder TR is same as TR. But, instead of having a common true range for both sides, Ladder TR calculates separate range for green and red candles. And by this, separate ATRs are calculated for red and green candles. While calculating the stop, red ATR is used for calculation of long stop and green ATR is used for calculation of short stop.
++ **Ladder TR** - Ladder TR is same as TR. But, instead of having a common true range for both sides, Ladder TR calculates separate range for green and red candles. And by this, separate ATRs are calculated for red and green candles. While calculating the stop, red ATR is used for calculation of long stop and green ATR is used for calculation of short stop.
 ```
 Green TR Array = TR array of green Candles
 Red TR Array = TR array of red Candles
@@ -28,7 +27,7 @@ Red ATR = Moving average applied to last N items on Red TR Array
 Long Stop Distance = Red ATR * Multiplier
 Short Stop Distance = Green ATR * Multiplier
 ```
-2. **Plus Minus Range** - Similar concept as that of Ladder True Range. But, instead of separating green and red candle range separately, in this method we calculate upside range and downside range separately for each candles.
++ **Plus Minus Range** - Similar concept as that of Ladder True Range. But, instead of separating green and red candle range separately, in this method we calculate upside range and downside range separately for each candle.
 ```
 Plus Range = Max( (high-open), (high-close[1]) )
 Minus Range = Max( (open-low), (close[1]-low) )
@@ -39,7 +38,7 @@ Minus ATR = MA (Minus Range, length)
 Long Stop Distance = Minus ATR * Multiplier
 Short Stop Distance = Plus ATR * Multiplier 
 ```
-3. Other options
++ Other options
 We can also consider things such as standard deviation, plus/minus standard deviation, or ladder deviations instead of using range based metrics. However, we have not done this implementation as part of this indicator yet.
 
 ### Applied calculation on true range
