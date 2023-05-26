@@ -20,10 +20,10 @@
 //            ▒▒▒▒▒         ▒▒▒▒▒      ██║   ██║  ██║███████╗██║ ╚████║██████╔╝╚██████╔╝███████║╚██████╗╚██████╔╝██║     ███████╗
 //             ▒▒             ▒
 //
-describe_indicator('iRsi [Trendoscope]', 'lower', { shortName: 'iRsi [Trendoscope]' });
+describe_indicator('iRSI [Trendoscope]', 'lower', { shortName: 'iRSI [Trendoscope]' });
 const source = input('Source', 'close', constants.price_source_options);
 const length = input('Length', 14, {min: 10})
-const rangeLength = input('High/Low Reference Length', 100, {min: 10})
+const rangeLength = input('High/Low Reference Length', 28, {min: 10})
 const maType = input('Range Method', 'sma', constants.ma_types.concat('highlow'));
 
 const rsiVal = rsi(prices[source], length)
