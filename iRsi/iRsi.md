@@ -1,4 +1,4 @@
-[![Trendoscope](https://assets.zyrosite.com/YBg17aEx8BCroqG1/logo-no-background-d95yX4Bp8PhPDxZx.svg)](https://www.trendoscope.au)
+[![Trendoscope](https://docs.trendoscope.io/media/posts/44/logo-no-background.svg)](https://www.trendoscope.au)
 # iRsi [Trendoscope]
 
 The Relative Strength Index (RSI) is a popular technical indicator used by traders and investors to assess the strength and momentum of price movements in financial markets. It is primarily used to identify potential overbought and oversold conditions in an asset.

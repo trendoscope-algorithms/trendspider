@@ -1,4 +1,4 @@
-[![Trendoscope](https://assets.zyrosite.com/YBg17aEx8BCroqG1/logo-no-background-d95yX4Bp8PhPDxZx.svg)](https://www.trendoscope.au)
+[![Trendoscope](https://docs.trendoscope.io/media/posts/44/logo-no-background.svg)](https://www.trendoscope.au)
 # iSupertrend [Trendoscope]
 
 Supertrend is a popular technical indicator used by traders to identify potential trend reversals and determine entry and exit points in financial markets. It is a trend-following indicator that combines price and volatility to generate its signals. Generally supertrend is calculated based on ATR and multiplier value which is used for calculation of stops. In these adaptions, we look to provide few variations to classical methods.
