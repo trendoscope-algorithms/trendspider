@@ -1,5 +1,7 @@
 [![Trendoscope](https://docs.trendoscope.io/media/posts/44/logo-no-background.svg)](https://trendoscope.io)
-# Trendspider - Technical Indicator Implementations
+# Trendspider - Technical Indicators
+[![CodeFactor](https://www.codefactor.io/repository/github/trendoscope-algorithms/trendspider/badge)](https://www.codefactor.io/repository/github/trendoscope-algorithms/trendspider)
+
 This repository contains open source custom indicators developed by Trendoscope Pty Ltd on Trendspider platform
 
 ## Classical TA
