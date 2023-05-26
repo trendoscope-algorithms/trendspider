@@ -19,3 +19,5 @@ Here are the steps to derive the dynamic overbought and oversold levels
     * When highlow option is used highest of low RSI becomes oversold and lowest of high RSI becomes overbought level
     * When other moving average types are used, then moving average of high RSI becomes overbought and moving average of low RSI becomes oversold level
 * HighLow calculation length can be altered based on the intended trade duration. Higher value will yield the levels close to borders (80-100 and 0-20 range) and offers less variation over period of time. Shorter HighLow length produces dynamic overbought oversold levels which can vary a lot - even towards 40-60 range
+
+[![iRSI](https://share.trendspider.com/chart/BINANCE_BTCUSDT/696114pmuxw)]
