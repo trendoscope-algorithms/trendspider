@@ -66,3 +66,5 @@ Reference tells the indicator whether to calculate the stop on the bases of high
 
 ### Wait For Close
 If selected, the change of supertrend direction will only be done based on close prices. Otherwise, high/low prices are used for calculating the change of direction.
+
+<img src="https://d2nbxczldlxikh.cloudfront.net/696114rpdg7.png" alt="iRSI [Trendoscope]">
