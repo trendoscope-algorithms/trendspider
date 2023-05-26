@@ -1,3 +1,4 @@
+[![Trendoscope](https://assets.zyrosite.com/YBg17aEx8BCroqG1/logo-no-background-d95yX4Bp8PhPDxZx.svg)](https://www.trendoscope.au)
 # iRsi [Trendoscope]
 
 The Relative Strength Index (RSI) is a popular technical indicator used by traders and investors to assess the strength and momentum of price movements in financial markets. It is primarily used to identify potential overbought and oversold conditions in an asset.
@@ -20,4 +21,4 @@ Here are the steps to derive the dynamic overbought and oversold levels
     * When other moving average types are used, then moving average of high RSI becomes overbought and moving average of low RSI becomes oversold level
 * HighLow calculation length can be altered based on the intended trade duration. Higher value will yield the levels close to borders (80-100 and 0-20 range) and offers less variation over period of time. Shorter HighLow length produces dynamic overbought oversold levels which can vary a lot - even towards 40-60 range
 
-[![iRSI](https://share.trendspider.com/chart/BINANCE_BTCUSDT/696114pmuxw)]
+<img src="https://d2nbxczldlxikh.cloudfront.net/696114pmuxw.png" alt="iRSI [Trendoscope]">
