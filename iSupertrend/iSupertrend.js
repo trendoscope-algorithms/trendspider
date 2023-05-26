@@ -22,7 +22,7 @@
 //
 describe_indicator('iSupertrend [Trendoscope]', 'price', { shortName: 'iST [Trendoscope]' });
 const type = input('Range Type', 'Ladder TR', ['Ladder TR', 'PlusMinus Range', 'True Range'])
-const appliedCalculation = input('Applied Calculation', 'average', ['average', 'max'])
+const appliedCalculation = input('Applied Calculation', 'sma', [...constants.ma_types, 'highest'])
 const useDiminishingStopDiff = input('Diminishing Stop Distance', 'true', ['true', 'false'])
 const length = input('Length', 20, { min: 10});
 const multiplier = input('Multiplier', 4, {min: 0.5})
@@ -41,18 +41,8 @@ const trendColor = series_of('red')
 const bullishLabel = series_of(null)
 const bearishLabel = series_of(null)
 
-const longAtr = series_of(null)
-const shortAtr = series_of(null)
-
-const redCandles = []
-const greenCandles = []
-
-const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
-const lpush = function(arr, val, size){
-    arr.push(val)
-    if(arr.length > size)
-        arr.shift()
-};
+const redCandles = series_of(null)
+const greenCandles = series_of(null)
 
 for (let index = 1; index < high.length; index++) {
     const tr = Math.max(
@@ -71,24 +61,30 @@ for (let index = 1; index < high.length; index++) {
 
     if(type === 'Ladder TR'){
         if(close[index] > close[index-1] || high[index] > high[index-1] || close[index] > open[index]){
-            lpush(greenCandles, tr, length)
+            greenCandles[index] = tr
+        }else{
+            greenCandles[index] = greenCandles[index-1]
         }
-
         if(close[index] < close[index-1] || low[index] < low[index-1] || close[index] < open[index]){
-            lpush(redCandles, tr, length)
+            redCandles[index]=tr
+        }else{
+            redCandles[index] = redCandles[index-1]
         }
     }
     if(type === 'True Range'){
-        lpush(greenCandles, tr, length)
-        lpush(redCandles, tr, length)
+        greenCandles[index] = tr
+        redCandles[index] = tr
     }
     if(type === 'PlusMinus Range'){
-        lpush(greenCandles, plusRange, length)
-        lpush(redCandles, minusRange, length)
+        greenCandles[index] = plusRange
+        redCandles[index] = minusRange
     }
+}
 
-    longAtr[index] = redCandles.length < length? atrDiff[index] : (appliedCalculation === 'average'? average(redCandles) : Math.max(...redCandles))*multiplier
-    shortAtr[index] = greenCandles.length < length?  atrDiff[index] : (appliedCalculation === 'average'? average(greenCandles) : Math.max(...greenCandles))*multiplier
+const longAtr = mult(indicators[appliedCalculation](redCandles, length), multiplier)
+const shortAtr = mult(indicators[appliedCalculation](greenCandles, length), multiplier)
+
+for (let index = 1; index < high.length; index++) {
     longDiff = index > 1 && direction > 0 && longDiff != null && useDiminishingStopDiff === 'true' ? Math.min(longDiff, longAtr[index]) : longAtr[index]
     shortDiff = index > 1 && direction < 0 && shortDiff != null && useDiminishingStopDiff === 'true' ? Math.min(shortDiff, shortAtr[index]) : shortAtr[index]
 
