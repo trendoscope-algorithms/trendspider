@@ -12,9 +12,7 @@ This repository contains open source custom indicators developed by Trendoscope 
 * iZigzag [Trendoscope]
 
 ## Contributions & Thanks
-If you found this project interesting or useful, create accounts with my referral links:
-- [Tradingview](https://www.tradingview.com/?aff_id=112733)
-- [BingX](https://bingx.com/en-us/partner/Trendoscope/)
+If you found this project interesting or useful, create accounts with my [Referrals](https://Link.Gallery/tscope)
 
 # Profiles
 <a href="https://p.trendoscope.io/"><img src="https://svgshare.com/i/u6r.svg" width="100" height="100"></a>
