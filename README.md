@@ -11,6 +11,9 @@ This repository contains open source custom indicators developed by Trendoscope 
 ## Zigzag
 * iZigzag [Trendoscope]
 
+## Harmonic Patterns
+* Harmonic Patterns [Trendoscope]
+
 ## Contributions & Thanks
 If you found this project interesting or useful, create accounts with my [Referrals](https://Link.Gallery/tscope)
 
